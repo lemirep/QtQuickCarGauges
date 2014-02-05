@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/GraphGauge.qml</file>
+        <file>qml/RoundGauge.qml</file>
+        <file>qml/needle.png</file>
+        <file>qml/needle2.png</file>
+    </qresource>
+</RCC>
