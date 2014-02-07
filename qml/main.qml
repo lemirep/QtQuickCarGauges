@@ -31,11 +31,20 @@ Window
                 bottom : parent.verticalCenter
             }
             //            outerCirclingColor: "#cc6600"
-            textFont.family : "Tahoma"
+            textFont.family : "Helvetica"
+            textFont.bold : true
+            textFont.italic : true
+            digitalFont.family : "Helvetica"
+            digitalFont.bold : true
+            digitalFont.italic : true
+
             //            textFont.pointSize : 12
 
             unit: "km/h"
             unitFont.pointSize: 12
+            unitFont.bold: true
+            unitFont.italic: true
+            unitFont.family: "Helvetica"
             fullCircle: true
             subDivs: 33
             minValue: 0
@@ -55,25 +64,33 @@ Window
                 top : parent.top
                 bottom : parent.verticalCenter
             }
-            outerCirclingColor: "#cc0000"
-            textFont.pointSize : 20
-            textFont.family : "Tahoma"
+            outerCirclingColor: "#ff2200"
+            textFont.pointSize : 35
+            textFont.family : "Helvetica"
+            textFont.bold : true
+            textFont.italic : true
             unit: "RPM x1000"
             unitFont.pointSize: 12
+            unitFont.bold: true
+            unitFont.italic: true
+            unitFont.family: "Helvetica"
+            digitalFont.family : "Helvetica"
+            digitalFont.bold : true
+            digitalFont.italic : true
+            digitalFont.pointSize: 20
             currentValue: parent.randVal * (maxValue - minValue) + minValue;
             subDivs: 6
             minValue: 0
             maxValue: 7
             lowValues: 1
             highValues: 5
-            digitalFont.pointSize: 15
         }
 
         Item
         {
             id : dashboard
             width : parent.width * 0.5
-            property int gaugeWidth : width * 0.3333;
+            property int gaugeWidth : width * 0.25;
             property int gaugeHeight : height * 0.5
 
             anchors
@@ -151,6 +168,18 @@ Window
                 digitalFont.pointSize: 10
                 currentValue: main_cadran.randVal *  (maxValue - minValue) + minValue;
             }
+            GraphGauge
+            {
+                id : graph_gauge
+                width : dashboard.gaugeWidth
+                height : dashboard.gaugeHeight
+                anchors
+                {
+                    left : fuel_level.right
+                    top : parent.top
+                }
+            }
+
             RoundGauge
             {
                 id : oil_pressure
