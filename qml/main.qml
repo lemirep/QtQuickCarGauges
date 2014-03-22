@@ -173,11 +173,16 @@ Window
                 id : graph_gauge
                 width : dashboard.gaugeWidth
                 height : dashboard.gaugeHeight
+                minValue: 0
+                maxValue: 60
+                subDivs: 4
                 anchors
                 {
                     left : fuel_level.right
                     top : parent.top
                 }
+//                currentValue: main_cadran.randVal *  (maxValue - minValue) + minValue;
+                currentValue: 30
             }
 
             RoundGauge

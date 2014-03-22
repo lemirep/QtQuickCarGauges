@@ -123,9 +123,10 @@ Canvas
             var offset = (subDivs % 2 !== 0) ? (i % 2 !== 0) ? 0.015 : 0.005 : 0.005
             context.arc(d.center.x, d.center.y, d.radius - (10 + indicatorWidth), rotAngle - ((i === 0) ? 0 : offset), rotAngle + ((i === subDivs + 1) ? 0 : offset));
             context.stroke();
-            text_model.append({"text" : ((i * angleStep / d.wholeAngle) * d.range * 100) / 100 + minValue,
-                                  "x" : d.center.x + ((d.radius - ((18 + indicatorWidth) + textFont.pixelSize)) * Math.cos(rotAngle)),
-                                  "y" : d.center.y + (d.radius - ((18 + indicatorWidth) + textFont.pixelSize)) * Math.sin(rotAngle)});
+            var textVal = (((i * angleStep / d.wholeAngle) * d.range * 100) / 100 + minValue).toFixed();
+            text_model.append({"text" : textVal,
+                                  "x" : d.center.x + ((d.radius - ((25 + indicatorWidth) + textFont.pixelSize * 0.5)) * Math.cos(rotAngle)),
+                                  "y" : d.center.y + (d.radius - ((25 + indicatorWidth) + textFont.pixelSize * 0.5)) * Math.sin(rotAngle)});
 
         }
     }
