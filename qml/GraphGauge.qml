@@ -25,6 +25,7 @@ Canvas
 
     property alias updateInterval : update_timer.interval
 
+    Component.onCompleted: console.log("Gauge completed");
 
     QtObject
     {
