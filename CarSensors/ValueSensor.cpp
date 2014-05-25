@@ -6,7 +6,13 @@ namespace OpenCarDashboard
 namespace Sensors
 {
 
-ValueSensor::ValueSensor() : BaseSensor()
+ValueSensor::ValueSensor(QObject *parent) : BaseSensor(parent),
+    m_value(0),
+    m_tmpValue(0),
+    m_refreshes(0),
+    m_minValue(0),
+    m_maxValue(0),
+    m_refreshRate(0)
 {
 }
 
@@ -19,8 +25,16 @@ void ValueSensor::setValue(float value)
 {
     if (m_value != value)
     {
-        m_value = value;
-        emit valueChanged();
+        if (m_refreshRate)
+        {
+            m_refreshes++;
+            m_tmpValue += value;
+        }
+        else
+        {
+            m_value = value;
+            emit valueChanged();
+        }
     }
 }
 
@@ -78,6 +92,43 @@ void ValueSensor::setMaxValueThreshold(float maxValueThreshold)
         m_maxValueThreshold = maxValueThreshold;
         emit maxValueThresholdChanged();
     }
+}
+
+int ValueSensor::refreshRate() const
+{
+    return m_refreshRate;
+}
+
+void ValueSensor::setRefreshRate(int refreshRate)
+{
+    if (m_refreshRate != refreshRate)
+    {
+        m_refreshRate = refreshRate;
+        if (m_refreshTimeout.remainingTime() < m_refreshRate)
+            this->refreshTimeoutElapsed();
+        if (m_refreshRate)
+        {
+            if (!m_refreshTimeout.isActive())
+                QObject::connect(&m_refreshTimeout, SIGNAL(timeout()), this, SLOT(refreshTimeoutElapsed()));
+            m_refreshTimeout.start(m_refreshRate);
+        }
+        else
+        {
+            QObject::disconnect(&m_refreshTimeout, SIGNAL(timeout()), this, SLOT(refreshTimeoutElapsed()));
+            m_refreshTimeout.stop();
+        }
+        emit refreshRateChanged();
+    }
+}
+
+void ValueSensor::refreshTimeoutElapsed()
+{
+    if (!m_refreshes)
+        return ;
+    m_value = m_tmpValue / m_refreshes;
+    m_refreshes = 0;
+    m_tmpValue = 0;
+    emit valueChanged();
 }
 
 } // Sensors

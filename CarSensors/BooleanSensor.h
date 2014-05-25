@@ -20,7 +20,7 @@ public:
     bool value() const;
     void setValue(bool value);
 
-private:
+protected:
     bool m_value;
 signals:
     void valueChanged();

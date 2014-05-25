@@ -6,8 +6,10 @@ INCLUDEPATH += $$PWD
 
 include(./QtQuickViewManager/View.pri)
 include(./CarSensors/CarSensors.pri)
+include(./CarActuators/CarActuators.pri)
 include(./Com/Com.pri)
 include(./Serial/Serial.pri)
+include(./Gauges/Gauges.pri)
 
 RESOURCES += qml_resources.qrc
 

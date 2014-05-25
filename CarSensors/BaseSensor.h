@@ -2,7 +2,9 @@
 #define OPENCARDASHBOARD_SENSORS_BASESENSOR_H
 
 #include <QObject>
-#include <QQuickItem>
+#include "SensorEnums.h"
+
+class QJsonValue;
 
 namespace OpenCarDashboard
 {
@@ -14,18 +16,24 @@ class BaseSensor : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString sensor READ sensor WRITE setSensor NOTIFY sensorChanged)
+    Q_PROPERTY(SensorType::SensorTypeEnum type READ type WRITE setType NOTIFY typeChanged)
 public:
-    BaseSensor();
+    BaseSensor(QObject *parent = 0);
 
     QString sensor() const;
     void setSensor(const QString &sensor);
 
+    SensorType::SensorTypeEnum type() const;
+    void setType(SensorType::SensorTypeEnum type);
+
 private:
     QString m_sensor;
+    SensorType::SensorTypeEnum m_type;
 
 signals:
     void    valueChanged();
     void    sensorChanged();
+    void    typeChanged();
 };
 
 } // Sensors
@@ -33,3 +41,4 @@ signals:
 } // OpenCarDashboard
 
 #endif // OPENCARDASHBOARD_SENSORS_BASESENSOR_H
+

@@ -1,4 +1,5 @@
 #include "BooleanSensor.h"
+#include <QJsonValue>
 
 namespace OpenCarDashboard
 {

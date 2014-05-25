@@ -2,6 +2,7 @@
 #define OPENCARDASHBOARD_SENSORS_VALUESENSOR_H
 
 #include "BaseSensor.h"
+#include <QTimer>
 
 namespace OpenCarDashboard
 {
@@ -17,8 +18,9 @@ class ValueSensor : public BaseSensor
     Q_PROPERTY(float maxValue READ maxValue WRITE setMaxValue NOTIFY maxValueChanged)
     Q_PROPERTY(float lowValueThreshold READ lowValueThreshold WRITE setLowValueThreshold NOTIFY lowValueThresholdChanged)
     Q_PROPERTY(float maxValueThreshold READ maxValueThreshold WRITE setMaxValueThreshold NOTIFY maxValueThresholdChanged)
+    Q_PROPERTY(int refreshRate READ refreshRate WRITE setRefreshRate NOTIFY refreshRateChanged)
 public:
-    ValueSensor();
+    ValueSensor(QObject *parent = 0);
 
     float value() const;
     void setValue(float value);
@@ -35,18 +37,30 @@ public:
     float maxValueThreshold() const;
     void setMaxValueThreshold(float maxValueThreshold);
 
-private:
+    int refreshRate() const;
+    void setRefreshRate(int refreshRate);
+
+protected:
     float m_value;
+    float m_tmpValue;
+    float m_refreshes;
     float m_minValue;
     float m_maxValue;
     float m_lowValueThreshold;
     float m_maxValueThreshold;
+    int m_refreshRate;
+    QTimer m_refreshTimeout;
+
+protected slots:
+    void refreshTimeoutElapsed();
+
 signals:
     void valueChanged();
     void minValueChanged();
     void maxValueChanged();
     void lowValueThresholdChanged();
     void maxValueThresholdChanged();
+    void refreshRateChanged();
 };
 
 } // Sensors

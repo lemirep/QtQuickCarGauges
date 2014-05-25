@@ -4,7 +4,9 @@ Canvas
 {
     id : gauge_canvas
     contextType: "2d"
-    antialiasing: true;
+//    antialiasing: true;
+    renderStrategy: Canvas.Immediate
+    renderTarget: Canvas.Image
 
     property real currentValue : 0;
     property real minValue : 0
@@ -156,7 +158,9 @@ Canvas
         id : value_timer
         anchors.fill: parent
         contextType: "2d"
-        antialiasing: true;
+//        antialiasing: true;
+        renderStrategy: Canvas.Immediate
+        renderTarget: Canvas.Image
 
         function getCadranColor()
         {
@@ -242,7 +246,7 @@ Canvas
         height : needle_pic.height
         x : d.center.x
         y : d.center.y
-        smooth : true
+//        smooth : true
 
         Image
         {
@@ -251,7 +255,7 @@ Canvas
             fillMode: Image.PreserveAspectFit
             width : parent.width + needle_holder.width * 0.7
             x : -needle_holder.width *0.7
-            smooth : true
+//            smooth : true
         }
 
         transform : Rotation {

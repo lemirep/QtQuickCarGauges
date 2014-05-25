@@ -4,5 +4,7 @@
         <file>qml/GraphGauge.qml</file>
         <file>qml/RoundGauge.qml</file>
         <file>qml/needle.png</file>
+        <file>qml/spinner.png</file>
+        <file>qml/FpsItem.qml</file>
     </qresource>
 </RCC>
